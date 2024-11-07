@@ -19,6 +19,7 @@ services:
     ports:
       - 8000:8000
     volumes:
+      - .env:/home/user/app/.env
       - ./main:/home/user/app/main
       - ./test:/home/user/app/test
     tty: true
