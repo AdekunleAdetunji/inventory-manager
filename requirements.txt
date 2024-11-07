@@ -1,0 +1,6 @@
+alembic
+fastapi[standard]
+pyjwt
+psycopg2
+sqlalchemy
+sqlalchemy-utils
