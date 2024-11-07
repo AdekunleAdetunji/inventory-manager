@@ -1,0 +1,34 @@
+services:
+  inventory-db:
+    image: postgres
+    container_name: inventory-db
+    environment:
+      - POSTGRES_DB="inventory-db"
+      - POSTGRES_PASSWORD="inventory-db"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    
+  main:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: projectmonty/fastapi:v1.0
+    container_name: main
+    ports:
+      - 8000:8000
+    volumes:
+      - ./main:/home/user/app/main
+      - ./test:/home/user/app/test
+    tty: true
+    stdin_open: true
+    entrypoint: "/bin/sh"
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    name: Driver for the inventory application backend
+    driver: bridge
