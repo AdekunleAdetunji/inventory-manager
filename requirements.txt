@@ -1,6 +1,7 @@
 alembic
 fastapi[standard]
 pyjwt
+pytest
 psycopg2
 sqlalchemy
 sqlalchemy-utils
