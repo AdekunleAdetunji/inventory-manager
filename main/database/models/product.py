@@ -22,7 +22,8 @@ class Product(BaseModel):
     description: Mapped[str] = mapped_column(nullable=True)
     price: Mapped[float] = mapped_column(nullable=False)
     category_id: Mapped[UUID] = mapped_column(ForeignKey("category.id"))
+    is_active: Mapped[bool] = mapped_column(default=True)
     category: Mapped["Category"] = relationship(back_populates="products")  # type: ignore
     inventories: Mapped[list["Inventory"]] = relationship(
-        back_populates="product", cascade="all, delete-orphan"
+        back_populates="product"
     )
