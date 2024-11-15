@@ -3,6 +3,7 @@
 This module contains the definition of the SQLAlchemy inventory model
 """
 from main.database.models.basemodel import BaseModel
+from main.database.models.inven_transaction import InventoryTransaction
 from sqlalchemy import UUID
 from sqlalchemy import ForeignKey
 from sqlalchemy_utils import CountryType
@@ -12,7 +13,7 @@ from sqlalchemy.orm import relationship
 
 
 class Inventory(BaseModel):
-    """Inventory orm model"""
+    """Model to hold record of all product inventories"""
 
     __tablename__ = "inventory"
 
@@ -20,3 +21,6 @@ class Inventory(BaseModel):
     quantity: Mapped[int] = mapped_column(nullable=False)
     product_id: Mapped[UUID] = mapped_column(ForeignKey("product.id"))
     product: Mapped["Product"] = relationship(back_populates="inventories")  # type: ignore
+    transactions: Mapped[list["InventoryTransaction"]] = relationship(
+        back_populates="inventory",
+    )
