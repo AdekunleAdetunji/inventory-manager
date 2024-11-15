@@ -89,10 +89,21 @@ def prod_kwargs() -> dict:
 @pytest.fixture()
 def inv_kwargs() -> dict:
     """
-    fixture to return a dictionary of product model attribute values required
+    fixture to return a dictionary of inventory model attribute values required
     to instantiate an inventory model object
     """
     return {"country": "US", "quantity": 3, "product_id": ""}
+
+
+@pytest.fixture()
+def inv_trans_kwargs() -> dict:
+    """
+    fixture to return a dictionary of inventory transaction model attribute
+    values required to instantiate an inventory model object
+    """
+    return {
+        "quantity": 3,
+    }
 
 
 @pytest.fixture()
