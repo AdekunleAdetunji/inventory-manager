@@ -15,10 +15,15 @@ def inv_obj(db_session, prod_obj, inv_kwargs):
     database session and delete it after the session
     """
 
-    prod_obj.inventories.append(Inventory(**inv_kwargs))
+    inv_obj = Inventory(**inv_kwargs)
+    prod_obj.inventories.append(inv_obj)
     db_session.commit()
+    # inv_obj = prod_obj.inventories[0]
 
-    return prod_obj.inventories[0]
+    yield inv_obj
+
+    db_session.delete(inv_obj)
+    db_session.commit()
 
 
 @pytest.fixture()
@@ -34,7 +39,7 @@ def inv_kwargs_with_prod_id(inv_kwargs, prod_obj):
 
 def test_inv_init_success(inv_obj):
     """
-    test that product object is successfully initialized and commited to the
+    test that inventory object is successfully initialized and commited to the
     database
     """
     assert (
