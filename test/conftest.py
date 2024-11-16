@@ -5,6 +5,7 @@ for testing
 """
 import pytest
 from main.database.base import Base
+from pydantic import ValidationError
 from sqlalchemy import create_engine
 from sqlalchemy import exc
 from sqlalchemy.orm import Session
@@ -31,13 +32,17 @@ def pytest_configure(config):
         "markers",
         "uniq_const_error_fixt_data",
     )  # suppress pytest unrecognized marker marker warning
+    config.addinivalue_line(
+        "markers",
+        "val_err_obj_fixt_data",
+    )  # suppress pytest unrecognized marker marker warning
 
 
 @pytest.fixture(scope="session")
 def db_engine(request):
     """yield an SQLAlchemy engine and dispose it after the test"""
     db_url = request.config.getoption("--db_url")
-    _engine = create_engine(db_url, echo=True)
+    _engine = create_engine(db_url, echo=False)
 
     # invoke sqlalchemy metadata object
     Base.metadata.create_all(bind=_engine)
@@ -159,3 +164,45 @@ def uniq_const_error(request, db_session):
 
     # rollback faiiled transaction
     db_session.rollback()
+
+
+@pytest.fixture()
+def val_err_obj(request):
+    """
+    fixture to yield pydantic validation error object based on failed
+    initialization criteria
+    """
+    with pytest.raises(ValidationError) as err_obj:
+        # get the marker supplying the fixture data
+        marker = request.node.get_closest_marker("val_err_obj_fixt_data")
+
+        # obtain the conditional identifier to determine the type of error
+        # object formed; the possible values are ["missing", "type"]
+        cond_id = marker.args[0]
+
+        # raise an error if cond_id is not one of ["missing", "type"]
+        if cond_id not in ["missing", "type"]:
+            raise Exception(
+                "argument in index 1 of fixture data must be one of"
+                " ['missing', 'type']"
+            )
+
+        # obtain the validator class from marker
+        validator = marker.args[1]
+
+        # obtain the kwargs fixture identifier fixture to be used in initializing validator
+        kwargs_fixt_name = marker.args[2]
+
+        # obtain the kwargs to be used for validator initialization
+        kwargs = request.getfixturevalue(kwargs_fixt_name)
+
+        if cond_id == "missing":
+            # delete a required key from the kwargs
+            del kwargs[marker.args[3]]
+        else:
+            kwargs[marker.args[3]] = marker.args[4]
+
+        # initialize the validator object that raises error
+        validator(**kwargs)
+
+    yield err_obj
