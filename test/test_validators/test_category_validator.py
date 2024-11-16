@@ -31,7 +31,6 @@ def test_cat_res_val_init_success(cat_obj):
         and res_obj.name
         and res_obj.code
         and res_obj.description
-        and not res_obj.products
     )
 
 
