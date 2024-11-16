@@ -20,7 +20,6 @@ class CategoryRequestValidator(BaseModel):
     name: str
     code: str
     description: str
-    products: Optional[list] = None
 
 
 class CategoryResponseValidator(Base, CategoryRequestValidator):
