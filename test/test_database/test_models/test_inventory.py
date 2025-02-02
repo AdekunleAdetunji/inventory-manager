@@ -4,8 +4,10 @@ This module contains tests for the inventory orm
 """
 import pytest
 from main.database.models.inventory import Inventory
-from test.test_database.test_models.test_category import cat_obj
-from test.test_database.test_models.test_product import prod_obj
+from test import *
+
+# from test.test_database.test_models.test_category import cat_obj
+# from test.test_database.test_models.test_product import prod_obj
 
 
 @pytest.fixture()

@@ -4,7 +4,9 @@ This module contains tests for the sqlalchemy product orm model
 """
 import pytest
 from main.database.models.product import Product
-from test.test_database.test_models.test_category import cat_obj
+from test import *
+
+# from test.test_database.test_models.test_category import cat_obj
 
 
 @pytest.fixture()

@@ -6,9 +6,11 @@ validator models
 import pytest
 from main.validators.product import ProductRequestValidator
 from main.validators.product import ProductResponseValidator
-from test.test_database.test_models.test_product import cat_obj
-from test.test_database.test_models.test_product import prod_kwarg_with_cat_id
-from test.test_database.test_models.test_product import prod_obj
+from test import *
+
+# from test.test_database.test_models.test_product import cat_obj
+# from test.test_database.test_models.test_product import prod_kwarg_with_cat_id
+# from test.test_database.test_models.test_product import prod_obj
 
 
 def test_req_val_init_success(prod_kwarg_with_cat_id):

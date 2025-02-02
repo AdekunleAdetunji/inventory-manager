@@ -4,9 +4,11 @@ This model contains tests for the inventory transaction orm model
 """
 import pytest
 from main.database.models.inven_transaction import InventoryTransaction
-from test.test_database.test_models.test_category import cat_obj
-from test.test_database.test_models.test_inventory import inv_obj
-from test.test_database.test_models.test_product import prod_obj
+from test import *
+
+# from test.test_database.test_models.test_category import cat_obj
+# from test.test_database.test_models.test_inventory import inv_obj
+# from test.test_database.test_models.test_product import prod_obj
 
 
 @pytest.fixture()

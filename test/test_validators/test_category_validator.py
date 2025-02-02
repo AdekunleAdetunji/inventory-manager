@@ -6,7 +6,7 @@ validator models
 import pytest
 from main.validators.category import CategoryRequestValidator
 from main.validators.category import CategoryResponseValidator
-from test.test_database.test_models.test_category import cat_obj
+from test import *
 
 
 def test_cat_req_val_init_success(cat_kwargs):
