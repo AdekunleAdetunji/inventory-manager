@@ -32,7 +32,20 @@ def test_cat_res_val_init_success(cat_obj):
         and res_obj.name
         and res_obj.code
         and res_obj.description
+        and not res_obj.products
     )
+
+
+def test_cat_res_val_init_success_with_product(prod_obj):
+    """
+    test that CategoryResponseValidator instantiates when supplied an category
+    instance with products field
+    """
+    # obtain category object linked to a product
+    cat_obj = prod_obj.category
+
+    res_obj = CategoryResponseValidator.model_validate(cat_obj)
+    assert res_obj.products
 
 
 def test_cat_req_val_init_fail_no_name(cat_kwargs):
