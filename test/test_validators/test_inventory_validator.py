@@ -33,6 +33,18 @@ def test_inv_res_val_init_success(inv_obj):
     )
 
 
+def test_inv_res_val_init_with_inv_trans_success(inv_trans_obj):
+    """
+    test that InventoryResponseValidator initializes when supplied an inv_obj
+    with inventory transactions
+    """
+    # obtain inventory object linked to an inventorytransaction
+    inv_obj = inv_trans_obj.inventory
+
+    res_obj = InventoryResponseValidator.model_validate(inv_obj)
+    assert res_obj.transactions
+
+
 def test_inv_req_init_fail_no_prod_id(inv_kwargs):
     """
     test that inventory model request validator fails when instantiatied with
