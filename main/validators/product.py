@@ -5,6 +5,7 @@ for the product orm model
 """
 from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
+from main.validators.inventory import InventoryResponseValidator
 from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
@@ -32,4 +33,4 @@ class ProductResponseValidator(Base, ProductRequestValidator):
     SQLAlchemy ORM model
     """
 
-    pass
+    inventories: list[InventoryResponseValidator]
