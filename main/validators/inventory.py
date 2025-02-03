@@ -27,4 +27,3 @@ class InventoryResponseValidator(Base, InventoryRequestValidator):
     """Validator model for inventory data web response"""
 
     transactions: list[InventoryTransactionResponseValidator]
-    pass
