@@ -4,9 +4,7 @@ This module configures pytest globally, making fixtures and others available
 for testing
 """
 import pytest
-from main.database.base import Base
-from pydantic import ValidationError
-from sqlalchemy import create_engine
+from main.database.engine import db_engine
 from sqlalchemy import exc
 from sqlalchemy.orm import Session
 
@@ -38,28 +36,19 @@ def pytest_configure(config):
     )  # suppress pytest unrecognized marker marker warning
 
 
-@pytest.fixture(scope="session")
-def db_engine(request):
-    """yield an SQLAlchemy engine and dispose it after the test"""
-    db_url = request.config.getoption("--db_url")
-    _engine = create_engine(db_url, echo=False)
-
-    # invoke sqlalchemy metadata object
-    Base.metadata.create_all(bind=_engine)
-
-    yield _engine
-
-    _engine.dispose()
-
-
 @pytest.fixture(autouse=True)
-def db_session(db_engine):
+def db_session():
     """
     yield a database session that is rolled back after each test
     """
-    session = Session(bind=db_engine)
+    _engine = db_engine()
+    _session = Session(bind=db_engine())
 
-    yield session
+    yield _session
+
+    # dispose the created engine
+    _engine.dispose()
+    _session.close()
 
 
 @pytest.fixture()
