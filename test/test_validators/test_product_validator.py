@@ -9,12 +9,8 @@ from main.validators.product import ProductResponseValidator
 from pydantic import ValidationError
 from test import *
 
-# from test.test_database.test_models.test_product import cat_obj
-# from test.test_database.test_models.test_product import prod_kwarg_with_cat_id
-# from test.test_database.test_models.test_product import prod_obj
 
-
-def test_req_val_init_success(prod_kwarg_with_cat_id):
+def test_prod_req_val_init_success(prod_kwarg_with_cat_id):
     """
     test that the product request validator pydantic model initializes
     properly
@@ -23,7 +19,7 @@ def test_req_val_init_success(prod_kwarg_with_cat_id):
     assert req_obj
 
 
-def test_res_val_init_success(prod_obj):
+def test_prod_res_val_init_success(prod_obj):
     """
     test that the product response validator pydantic model initializes
     properly
@@ -38,7 +34,20 @@ def test_res_val_init_success(prod_obj):
         and res_obj.name
         and res_obj.price
         and res_obj.is_active
+        and not res_obj.inventories
     )
+
+
+def test_prod_res_val_init_success_with_inv(inv_obj):
+    """
+    test that ProductResponseValidator initializes when supplied a Product
+    instance linked to an inventory object
+    """
+    # obtain the product object linked to an inventory object
+    prod_obj = inv_obj.product
+
+    res_obj = ProductResponseValidator.model_validate(prod_obj)
+    assert res_obj.inventories
 
 
 def test_req_val_init_fail_no_name(prod_kwarg_with_cat_id):
