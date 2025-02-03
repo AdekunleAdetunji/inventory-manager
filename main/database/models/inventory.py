@@ -6,7 +6,6 @@ from main.database.models.basemodel import BaseModel
 from main.database.models.inven_transaction import InventoryTransaction
 from sqlalchemy import UUID
 from sqlalchemy import ForeignKey
-from sqlalchemy_utils import CountryType
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
@@ -17,7 +16,7 @@ class Inventory(BaseModel):
 
     __tablename__ = "inventory"
 
-    country: Mapped[str] = mapped_column(CountryType, nullable=False)
+    country: Mapped[str] = mapped_column(nullable=False)
     quantity: Mapped[int] = mapped_column(nullable=False)
     product_id: Mapped[UUID] = mapped_column(ForeignKey("product.id"))
     product: Mapped["Product"] = relationship(back_populates="inventories")  # type: ignore
