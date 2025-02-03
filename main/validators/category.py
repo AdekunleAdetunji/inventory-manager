@@ -5,6 +5,7 @@ for the category orm model
 """
 from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
+from main.validators.product import ProductResponseValidator
 from pydantic import BaseModel
 from typing import Optional
 
@@ -28,4 +29,4 @@ class CategoryResponseValidator(Base, CategoryRequestValidator):
     inventory database category table
     """
 
-    pass
+    products: list[ProductResponseValidator]
