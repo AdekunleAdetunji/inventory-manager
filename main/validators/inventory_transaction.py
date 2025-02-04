@@ -10,7 +10,7 @@ from uuid import UUID
 
 class InventoryTransactionRequestValidator(BaseModel):
     """
-    Validator model for inventory transaction moel data recieved from a web
+    Validator model for inventory transaction model data recieved from a web
     request
     """
 
