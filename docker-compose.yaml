@@ -1,0 +1,39 @@
+services:
+  inventory-db:
+    image: postgres
+    container_name: inventory-db
+    environment:
+      - POSTGRES_USER=inventory-db
+      - POSTGRES_PASSWORD=inventory-db
+      - POSTGRES_DB=inventory-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  main:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: projectmonty/fastapi:v1.0
+    container_name: main
+    ports:
+      - "8000:8000"
+    volumes:
+      - .env:/home/inventory/.env
+      - ./main:/home/inventory/main
+      - ./test:/home/inventory/test
+    links:
+      - inventory-db
+    tty: true
+    stdin_open: false
+    entrypoint: "fastapi dev --host 0.0.0.0 --port 8000 main/app.py"
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    driver: bridge
