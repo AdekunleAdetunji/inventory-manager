@@ -5,16 +5,14 @@ of the inventory table
 """
 from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
-from main.validators.inventory_transaction import (
-    InventoryTransactionResponseValidator,
-)
+from main.validators.basemodel import BaseResponseValidator
 from pydantic import BaseModel
 from pydantic_extra_types.country import CountryAlpha2
 from uuid import UUID
 
 
 class InventoryRequestValidator(BaseModel):
-    """Validator model for inventory data recieved from a web request"""
+    """Validator model for inventory model data recieved from a web request"""
 
     model_config = base_config
 
@@ -24,6 +22,6 @@ class InventoryRequestValidator(BaseModel):
 
 
 class InventoryResponseValidator(Base, InventoryRequestValidator):
-    """Validator model for inventory data web response"""
+    """Validator model for inventory model data sent with a web response"""
 
-    transactions: list[InventoryTransactionResponseValidator]
+    transactions: list[BaseResponseValidator]

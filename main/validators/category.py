@@ -5,15 +5,13 @@ for the category orm model
 """
 from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
-from main.validators.product import ProductResponseValidator
+from main.validators.basemodel import BaseResponseValidator
 from pydantic import BaseModel
-from typing import Optional
 
 
 class CategoryRequestValidator(BaseModel):
     """
-    Model to handle validation of request body for operations on the category
-    ORM model
+    Validator model for category model data recieved from a web request
     """
 
     model_config = base_config
@@ -24,9 +22,6 @@ class CategoryRequestValidator(BaseModel):
 
 
 class CategoryResponseValidator(Base, CategoryRequestValidator):
-    """
-    Model to handle validation of data that is being retrieved from the
-    inventory database category table
-    """
+    """Validator model for category model data sent with a web response"""
 
-    products: list[ProductResponseValidator]
+    products: list[BaseResponseValidator]

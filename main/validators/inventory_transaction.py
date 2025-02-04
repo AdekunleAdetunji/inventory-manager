@@ -9,7 +9,10 @@ from uuid import UUID
 
 
 class InventoryTransactionRequestValidator(BaseModel):
-    """Validator model for request body data"""
+    """
+    Validator model for inventory transaction moel data recieved from a web
+    request
+    """
 
     model_config = base_config
 
@@ -20,6 +23,8 @@ class InventoryTransactionRequestValidator(BaseModel):
 class InventoryTransactionResponseValidator(
     Base, InventoryTransactionRequestValidator
 ):
-    """Validator model for response body data"""
+    """
+    Validator model for inventory transaction model data sent with a web response
+    """
 
     pass

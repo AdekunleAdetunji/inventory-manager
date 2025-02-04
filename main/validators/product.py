@@ -5,17 +5,14 @@ for the product orm model
 """
 from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
-from main.validators.inventory import InventoryResponseValidator
+from main.validators.basemodel import BaseResponseValidator
 from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
 
 
 class ProductRequestValidator(BaseModel):
-    """
-    Model to handle validation of request body for operations on the product
-    ORM model
-    """
+    """Validator model for product model data recieved from a web request"""
 
     model_config = base_config
 
@@ -28,9 +25,6 @@ class ProductRequestValidator(BaseModel):
 
 
 class ProductResponseValidator(Base, ProductRequestValidator):
-    """
-    Model to handle validation of resonse body for operation on the product
-    SQLAlchemy ORM model
-    """
+    """Validator model for product data sent with a web response"""
 
-    inventories: list[InventoryResponseValidator]
+    inventories: list[BaseResponseValidator]

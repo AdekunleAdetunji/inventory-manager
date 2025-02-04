@@ -7,6 +7,7 @@ database tables
 import psycopg2
 from main.database.base import Base
 from main.validators.config import get_db_env_vars
+from pydantic import ValidationError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -48,6 +49,6 @@ def db_session():
 
     yield _session
 
-    # dispose the created engine
+    # dispose the created engine and close sessin connection
     _engine.dispose()
     _session.close()
