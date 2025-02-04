@@ -3,8 +3,8 @@ services:
     image: postgres
     container_name: inventory-db
     environment:
-      - POSTGRES_USER=inventory-db
-      - POSTGRES_PASSWORD=inventory-db
+      - POSTGRES_USER=inventory-db-user
+      - POSTGRES_PASSWORD=inventory-db-password
       - POSTGRES_DB=inventory-db
     ports:
       - "5432:5432"
