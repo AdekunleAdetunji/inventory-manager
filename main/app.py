@@ -3,11 +3,12 @@
 This module contains the main fastapi applications
 """
 from fastapi import FastAPI
-from main.admin import admin
+from main.sub_apps.admin import admin
 
 
 # assign an instance of a FastAPI class to main variable
-main = FastAPI()
+app = FastAPI()
 
 
-main.mount("/admin", admin)
+# mount the admin application of the main application
+app.mount("/admin", admin)
