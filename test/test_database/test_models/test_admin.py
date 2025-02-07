@@ -61,6 +61,28 @@ def test_admin_init_fail_no_password(missing_arg_error):
     )
 
 
+@pytest.mark.missing_arg_error_fixt_data(Admin, "admin_kwargs", "first_name")
+def test_admin_init_fail_no_first_name(missing_arg_error):
+    """
+    test that initialization of Admin model fails with no first_name instance
+    attribute value provided
+    """
+    assert "NOT NULL constraint failed: admin.first_name" in str(
+        missing_arg_error.value
+    )
+
+
+@pytest.mark.missing_arg_error_fixt_data(Admin, "admin_kwargs", "last_name")
+def test_admin_init_fail_no_password(missing_arg_error):
+    """
+    test that initialization of Admin model fails with no last_name instance
+    attribute value provided
+    """
+    assert "NOT NULL constraint failed: admin.last_name" in str(
+        missing_arg_error.value
+    )
+
+
 @pytest.mark.uniq_const_error_fixt_data(Admin, "admin_kwargs")
 def test_admin_init_fail_dual_email(uniq_const_error):
     """

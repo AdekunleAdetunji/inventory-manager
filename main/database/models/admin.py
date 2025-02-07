@@ -21,5 +21,5 @@ class Admin(BaseModel):
     password: Mapped[str] = mapped_column(
         PasswordType(schemes=["pbkdf2_sha512"]), nullable=False
     )
-    first_name: Mapped[str]
-    last_name: Mapped[str]
+    first_name: Mapped[str] = mapped_column(nullable=False)
+    last_name: Mapped[str] = mapped_column(nullable=False)
