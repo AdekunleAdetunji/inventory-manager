@@ -10,6 +10,7 @@ from sqlalchemy import UUID
 from uuid import uuid4
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
+from sqlalchemy_utils import force_auto_coercion
 
 from ..base import Base
 
@@ -17,6 +18,7 @@ from ..base import Base
 class BaseModel(Base):
     """BaseModel class for all tables"""
 
+    force_auto_coercion()
     __abstract__ = True
 
     id: Mapped[UUID] = mapped_column(
