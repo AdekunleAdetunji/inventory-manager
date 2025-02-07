@@ -7,6 +7,7 @@ from main.validators.basemodel import Base
 from main.validators.basemodel import base_config
 from main.validators.basemodel import BaseResponseValidator
 from pydantic import BaseModel
+from pydantic import Field
 
 
 class CategoryRequestValidator(BaseModel):
@@ -17,7 +18,7 @@ class CategoryRequestValidator(BaseModel):
     model_config = base_config
 
     name: str
-    code: str
+    code: str = Field(max_length=5)
     description: str
 
 
