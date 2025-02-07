@@ -49,6 +49,19 @@ def db_session():
 
 
 @pytest.fixture()
+def admin_kwargs() -> dict:
+    """
+    fixture to return a dictionary of admin model instance arguments
+    """
+    return {
+        "first_name": "admin",
+        "last_name": "admin",
+        "email": "admin@admin.com",
+        "password": "admin",
+    }
+
+
+@pytest.fixture()
 def cat_kwargs() -> dict:
     """
     fixture to return a dictionary of attribute key and values to be used in
