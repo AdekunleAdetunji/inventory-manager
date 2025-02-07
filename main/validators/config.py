@@ -18,7 +18,6 @@ class DBEnvironmentVariableValidator(BaseSettings):
     DB_HOST: str
     DB_PORT: int
     DB_PASSWORD: str
-    DB_TYPE: Literal["main", "test"]
 
 
 @lru_cache
