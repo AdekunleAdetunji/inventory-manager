@@ -21,7 +21,7 @@ def integrity_error_handler(sqlalchemy_err_obj: exc.IntegrityError):
         user defined HTTPException
     """
     # check that
-    if type(sqlalchemy_err_obj.orig) == errors.UniqueViolation:
+    if isinstance(sqlalchemy_err_obj.orig, errors.UniqueViolation):
         return http_exc.conflict(sqlalchemy_err_obj.orig)
     else:
         return http_exc.conflict(sqlalchemy_err_obj)
@@ -39,7 +39,7 @@ def data_error_handler(sqlalchemy_err_obj: exc.DataError):
     return: HTTPException
         user defined HTTPException
     """
-    if type(sqlalchemy_err_obj.orig) == errors.InvalidTextRepresentation:
+    if isinstance(sqlalchemy_err_obj.orig, errors.InvalidTextRepresentation):
         return http_exc.bad_request(sqlalchemy_err_obj.orig)
     else:
         return http_exc.bad_request(sqlalchemy_err_obj)
