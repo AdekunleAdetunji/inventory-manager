@@ -4,19 +4,10 @@ This module configures pytest globally, making fixtures and others available
 for testing
 """
 import pytest
-from main.database.engine import db_engine
+from main.database.base import Base
 from sqlalchemy import exc
-from sqlalchemy.orm import Session
-
-
-def pytest_addoption(parser):
-    """Configure pytest to recieve custom command line argument"""
-    parser.addoption(
-        "--db_url",
-        action="store",
-        default="sqlite://",
-        help="kindly provide command line argument specifying the database url",
-    )
+from test import _engine
+from test import TestingSessionLocal
 
 
 def pytest_configure(config):
@@ -37,18 +28,24 @@ def pytest_configure(config):
 
 
 @pytest.fixture(autouse=True)
+def setup_database():
+    # Create all tables before each test
+    Base.metadata.create_all(bind=_engine)
+    yield
+    # Drop all tables after each test
+    Base.metadata.drop_all(bind=_engine)
+
+
+@pytest.fixture(autouse=True)
 def db_session():
     """
     yield a database session that is rolled back after each test
     """
-    _engine = db_engine()
-    _session = Session(bind=db_engine())
-
+    _session = TestingSessionLocal()
     yield _session
-
-    # dispose the created engine
-    _engine.dispose()
+    # close the session connection
     _session.close()
+    _engine.dispose()
 
 
 @pytest.fixture()
