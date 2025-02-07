@@ -4,19 +4,13 @@ This module contains the category router and path operations for carrying
 out CRUD operations on the Category database table
 """
 from fastapi import APIRouter
-from fastapi import Depends
-from main.database.engine import db_session
 from main.database.models.category import Category
+from main.sub_apps import *
 from main.validators.category import CategoryRequestValidator
 from main.validators.category import CategoryResponseValidator
-from main.utils import http_exc
-from main.utils import sqlalchemy_err_utils
-from sqlalchemy import exc
-from sqlalchemy import select
-from sqlalchemy.orm import Session
-from uuid import UUID
 
-# instantiate the category APIRouter
+
+# instantiate the category fastpi router object
 router = APIRouter()
 
 
@@ -33,7 +27,7 @@ async def all_categories(session: Session = Depends(db_session)):
 
 
 @router.get(
-    "/category_by_id/{identifier}",
+    "/category-by-id/{identifier}",
     response_model=CategoryResponseValidator,
     tags=["READ"],
 )
@@ -57,7 +51,7 @@ async def get_category_by_id(
 
 
 @router.get(
-    "/category_by_name/{identifier}",
+    "/category-by-name/{identifier}",
     response_model=CategoryResponseValidator,
     tags=["READ"],
 )
@@ -81,7 +75,7 @@ async def get_category_by_name(
 
 
 @router.post(
-    "/category", response_model=CategoryResponseValidator, tags=["WRITE"]
+    "/new-category", response_model=CategoryResponseValidator, tags=["WRITE"]
 )
 async def create_category(
     request: CategoryRequestValidator, session: Session = Depends(db_session)
