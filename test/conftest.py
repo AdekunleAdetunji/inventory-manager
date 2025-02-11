@@ -58,6 +58,7 @@ def admin_kwargs() -> dict:
         "last_name": "admin",
         "email": "admin@admin.com",
         "password": "admin",
+        "username": "admin@admin.com",
     }
 
 
