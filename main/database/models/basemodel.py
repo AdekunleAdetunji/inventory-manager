@@ -4,6 +4,7 @@ This module contains the BaseModel class that contains shared class attributes
 and methods between all database models
 """
 from datetime import datetime
+from datetime import timezone
 from sqlalchemy import DateTime
 from sqlalchemy import inspect
 from sqlalchemy import UUID
@@ -28,10 +29,15 @@ class BaseModel(Base):
         default=uuid4,
     )
     created: Mapped[DateTime] = mapped_column(
-        DateTime, nullable=False, default=datetime.now
+        DateTime,
+        nullable=False,
+        default=datetime.now(timezone.utc),
     )
     updated: Mapped[DateTime] = mapped_column(
-        DateTime, nullable=False, default=datetime.now, onupdate=datetime.now
+        DateTime,
+        nullable=False,
+        default=datetime.now(timezone.utc),
+        onupdate=datetime.now(timezone.utc),
     )
 
     def __init__(self, *args, **kwargs) -> None:
