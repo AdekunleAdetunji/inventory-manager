@@ -23,6 +23,8 @@ services:
       - "8000:8000"
     volumes:
       - .env:/home/inventory/.env
+      - ./public_key.pem:/home/inventory/public_key.pem
+      - ./private_key.pem:/home/inventory/private_key.pem
       - ./main:/home/inventory/main
       - ./test:/home/inventory/test
     links:
