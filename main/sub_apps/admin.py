@@ -48,9 +48,11 @@ access_token_expires = timedelta(minutes=30)
     response_model=AdminResponseValidator,
     tags=["ADMIN"],
     description="""
-This endpoint allows the creation of a new admin in the database.  
-The request body should contain all required admin details such as name, email,
-and password. Upon successful creation, the new admin's details will be returned.
+    **Create New Admin**
+
+    This endpoint allows the creation of a new admin in the database.  
+    The request body should contain all required admin details such as name, \
+email, and password. Upon successful creation, the new admin's details will be returned.
 """,
 )
 def create_admin(
@@ -98,9 +100,11 @@ def create_admin(
     response_model=Token,
     tags=["ADMIN"],
     description="""
-This endpoint generates an access token for admin authentication.  
-The token is required to access other protected routes. It is valid for 30
-minutes and must be passed as a Bearer token in subsequent requests.
+    **Generate Authentication Token**
+    
+    This endpoint generates an access token for admin authentication.  
+    The token is required to access other protected routes. It is valid for \
+30 minutes and must be passed as a Bearer token in subsequent requests.
 """,
 )
 def login_for_access_token(
@@ -147,9 +151,11 @@ def login_for_access_token(
     response_model=AdminResponseValidator,
     tags=["ADMIN"],
     description="""
-This endpoint retrieves the details of the authenticated admin using the
-provided token.  
-It returns the admin’s full profile, including name and email.
+    **Get Admin Info**
+
+    This endpoint retrieves the details of the authenticated admin using the \
+provided token.
+    It returns the admin's full profile, including name and email.
 """,
 )
 def get_admin_info(
@@ -183,10 +189,12 @@ def get_admin_info(
     response_model=AdminResponseValidator,
     tags=["ADMIN"],
     description="""
-This endpoint updates the authenticated admin’s information.  
-You can update one or multiple fields such as name, contact information, and
-other details.  
-Only non-null fields from the request body will be updated.
+    **Update Admin Info**
+    
+    This endpoint updates the authenticated admin’s information.  
+    You can update one or multiple fields such as name, contact information,\
+and other details.  
+    Only non-null fields from the request body will be updated.
 """,
 )
 def update_admin_info(
@@ -234,9 +242,11 @@ def update_admin_info(
     response_model=AdminResponseValidator,
     tags=["ADMIN"],
     description="""
-This endpoint allows the authenticated admin to change their password.  
-The request must include the current password and the new password.  
-If the current password does not match the stored password, an error will be
+    **Change Admin Password**
+
+    This endpoint allows the authenticated admin to change their password.  
+    The request must include the current password and the new password. If \
+the current password does not match the stored password, an error will be \
 raised.
 """,
 )
@@ -291,9 +301,11 @@ def change_password(
     "/delete-admin",
     tags=["ADMIN"],
     description="""
-This endpoint deletes the authenticated admin account from the database.  
-Once deleted, the admin’s account cannot be recovered.  
-A valid token is required for authentication.
+    **Delete Admin Account**
+
+    This endpoint deletes the authenticated admin account from the database.  
+    Once deleted, the admin’s account cannot be recovered.  
+    A valid token is required for authentication.
 """,
 )
 def delete_admin(
