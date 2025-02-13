@@ -6,22 +6,14 @@ import jwt
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import InvalidTokenError
-from main.database.engine import db_session
 from main.database.models.admin import Admin
-from main.utils import http_exc
-from main.validators.token import Token
 from main.validators.token import TokenData
-from main.utils import sqlalchemy_err_utils
-from sqlalchemy import exc
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from uuid import UUID
-from typing import Annotated
 
 
 # get the public and private keys used to generate the toke
