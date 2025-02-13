@@ -9,6 +9,24 @@ from pydantic import BaseModel
 from pydantic import EmailStr
 
 
+class PutAdminRequestValidator(BaseModel):
+    """
+    Validator class for data used in updating an existing sqlalchemy admin ORM
+    """
+
+    first_name: str | None = None
+    last_name: str | None = None
+
+
+class NewAdminPassRequestValidator(BaseModel):
+    """
+    Validator class for new password data sent to the admin sqlalchemy ORM
+    """
+
+    old_password: str
+    new_password: str
+
+
 class AdminRequestValidator(BaseModel):
     """Validator class for data going into the sqlalchemy admin ORM"""
 
